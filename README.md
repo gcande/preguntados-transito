@@ -68,7 +68,12 @@ Como experto frontend, recomiendo escalar este MVP de la siguiente manera:
 1. **TypeScript**: Migrar a TS para mayor robustez en el manejo de tipos de preguntas.
 2. **Backend/Database**: Implementar una API (Node/Express) y una base de datos (PostgreSQL/MongoDB) para persistir puntajes globales y líderes.
 3. **Internacionalización**: Adaptar las preguntas para otros códigos de tránsito de Latinoamérica.
-4. **PWA**: Convertir el juego en una Progressive Web App para que los usuarios puedan "instalarla" y jugar sin conexión.
+
+## Link
+```bash
+https://gcande.github.io/preguntados-transito/
+```
+5. **PWA**: Convertir el juego en una Progressive Web App para que los usuarios puedan "instalarla" y jugar sin conexión.
 
 ---
 **Desarrollado como MVP para entrenamiento de conducción • 2026**
