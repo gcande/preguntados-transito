@@ -15,12 +15,12 @@ const Categories = ({ onSelect }) => {
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="mb-12 text-center md:text-left"
+        className="mb-8 md:mb-12 text-center md:text-left"
       >
-        <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+        <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
           Selecciona una Categoría
         </h2>
-        <p className="text-white/60 text-lg">
+        <p className="text-white/60 text-base md:text-lg">
           Cada examen consta de 10 preguntas aleatorias de la categoría elegida.
         </p>
       </motion.div>

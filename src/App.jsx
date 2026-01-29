@@ -63,7 +63,7 @@ function App() {
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-600/10 blur-[120px] rounded-full" />
       </div>
 
-      <main className="relative z-10 container mx-auto">
+      <main className="relative z-10 container mx-auto px-4 pb-20">
         <AnimatePresence mode="wait">
           <motion.div
             key={gameState}
@@ -78,7 +78,7 @@ function App() {
       </main>
 
       {/* Footer Branding */}
-      <footer className="fixed bottom-4 left-0 w-full text-center text-white/20 text-xs pointer-events-none">
+      <footer className="absolute bottom-4 left-0 w-full text-center text-white/20 text-[10px] md:text-xs pointer-events-none px-4">
         &copy; 2026 TRÁNSITO QUIZ COLOMBIA • DESARROLLADO PARA MVP
       </footer>
     </div>

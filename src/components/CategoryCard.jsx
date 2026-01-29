@@ -19,10 +19,10 @@ const CategoryCard = ({ category, onClick }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       onClick={() => onClick(category)}
-      className="glass-card flex flex-col items-center justify-center p-8 space-y-4 hover:bg-white/20 transition-all duration-300"
+      className="glass-card flex flex-col items-center justify-center p-6 md:p-8 space-y-4 hover:bg-white/20 transition-all duration-300"
     >
-      <span className="text-6xl">{getIcon(category)}</span>
-      <h3 className="text-xl font-bold text-white text-center">{category}</h3>
+      <span className="text-5xl md:text-6xl">{getIcon(category)}</span>
+      <h3 className="text-lg md:text-xl font-bold text-white text-center">{category}</h3>
     </motion.button>
   );
 };

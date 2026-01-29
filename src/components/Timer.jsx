@@ -9,7 +9,7 @@ const Timer = ({ timeLeft }) => {
       <motion.div
         animate={isLow ? { scale: [1, 1.1, 1] } : {}}
         transition={{ repeat: Infinity, duration: 0.5 }}
-        className={`w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold glass-card
+        className={`w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center text-2xl md:text-3xl font-bold glass-card
           ${isLow ? 'text-red-500 border-red-500 pulse-red' : 'text-blue-400 border-blue-400'}`}
       >
         {timeLeft}

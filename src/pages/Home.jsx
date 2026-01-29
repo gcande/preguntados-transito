@@ -22,13 +22,13 @@ const Home = ({ onStart }) => {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="glass-card p-12 max-w-lg w-full"
+        className="glass-card p-6 md:p-12 max-w-lg w-full"
       >
-        <div className="text-6xl mb-8">🚦</div>
-        <h2 className="text-2xl font-bold text-white mb-6">
+        <div className="text-5xl md:text-6xl mb-6 md:mb-8">🚦</div>
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6">
           ¿Estás listo para obtener tu licencia?
         </h2>
-        <p className="text-white/60 mb-10 leading-relaxed">
+        <p className="text-white/60 mb-8 md:mb-10 leading-relaxed text-sm md:text-base">
           Pon a prueba tus conocimientos sobre el Código Nacional de Tránsito. 
           Preguntas oficiales sobre señales, multas y normas viales.
         </p>
@@ -37,7 +37,7 @@ const Home = ({ onStart }) => {
           whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(59, 130, 246, 0.5)" }}
           whileTap={{ scale: 0.95 }}
           onClick={onStart}
-          className="w-full py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-2xl font-black transition-all shadow-xl shadow-blue-900/40"
+          className="w-full py-4 md:py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-xl md:text-2xl font-black transition-all shadow-xl shadow-blue-900/40"
         >
           ¡COMENZAR AHORA!
         </motion.button>
