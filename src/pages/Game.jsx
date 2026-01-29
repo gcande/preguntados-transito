@@ -20,7 +20,7 @@ const Game = ({
   return (
     <div className="min-h-screen py-6 md:py-8 px-4 flex flex-col items-center">
       {/* Header Info */}
-      <div className="w-full max-w-4xl flex flex-wrap justify-between items-center md:items-end gap-y-4 mb-8 md:mb-12">
+      <div className="w-full max-w-4xl flex flex-wrap justify-between items-center md:items-center gap-y-4 mb-8 md:mb-12">
         <div className="flex flex-col order-1 md:order-none">
           <span className="text-blue-400 font-bold uppercase tracking-wider text-[10px] md:text-xs mb-1 text-left">Categoría</span>
           <h3 className="text-white font-bold text-base md:text-xl truncate max-w-[150px] md:max-w-none">{currentQuestion.category}</h3>
@@ -30,7 +30,7 @@ const Game = ({
           <Timer timeLeft={timeLeft} />
         </div>
 
-        <div className="flex flex-col items-end order-2 md:order-none">
+        <div className="flex flex-col items-end order-2 md:order-none w-auto justify-center">
           <span className="text-blue-400 font-bold uppercase tracking-wider text-[10px] md:text-xs mb-1">Puntos</span>
           <h3 className="text-white font-bold text-xl md:text-2xl">{score}</h3>
         </div>
