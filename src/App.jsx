@@ -79,7 +79,7 @@ function App() {
 
       {/* Footer Branding */}
       <footer className="absolute bottom-4 left-0 w-full text-center text-white/20 text-[10px] md:text-xs pointer-events-none px-4">
-        &copy; 2026 TRÁNSITO QUIZ COLOMBIA • DESARROLLADO PARA MVP
+        &copy; 2026 TRÁNSITO QUIZ COLOMBIA • DESARROLLADO POR GABRIEL CANDELARIO
       </footer>
     </div>
   );
