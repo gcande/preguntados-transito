@@ -52,6 +52,22 @@ Para correr este proyecto localmente, sigue estos pasos:
 
 ---
 
+## 🌐 Despliegue en GitHub Pages
+
+Este proyecto está configurado para desplegarse automáticamente mediante **GitHub Actions**. Sigue estos pasos para activarlo en tu repositorio:
+
+1.  **Configurar la Fuente**:
+    *   Ve a la pestaña **Settings** de tu repositorio en GitHub.
+    *   En el menú izquierdo, selecciona **Pages**.
+    *   En la sección **Build and deployment > Source**, selecciona **GitHub Actions** en el menú desplegable.
+2.  **Despliegue Automático**:
+    *   Cada vez que hagas un `push` a la rama `main`, el workflow se activará automáticamente.
+    *   Puedes seguir el progreso en la pestaña **Actions**.
+3.  **Configuración de Vite**:
+    *   Asegúrate de que en `vite.config.js` el campo `base` coincida con el nombre de tu repositorio: `base: '/preguntados-transito/'`.
+
+---
+
 ## 📂 Estructura del Código
 
 - `/src/hooks/useGame.js`: Cerebro del juego. Gestiona estados, temporizadores y sonidos.

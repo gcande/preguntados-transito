@@ -69,6 +69,7 @@ export const useGame = () => {
       setScore(prev => prev + 10);
       setCorrectCount(prev => prev + 1);
       sounds.current.correct.play();
+      sounds.current.timeout.stop();
     } else {
       setWrongCount(prev => prev + 1);
       sounds.current.wrong.play();
