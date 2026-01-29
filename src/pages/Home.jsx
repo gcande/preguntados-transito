@@ -10,7 +10,7 @@ const Home = ({ onStart }) => {
         transition={{ duration: 0.8 }}
         className="mb-12"
       >
-        <h1 className="text-6xl md:text-8xl font-black text-white mb-4 tracking-tighter italic">
+        <h1 className="text-4xl md:text-8xl font-black text-white mb-4 tracking-tighter italic">
           TRÁNSITO<span className="text-blue-500">QUIZ</span>
         </h1>
         <p className="text-xl text-blue-300/80 font-medium uppercase tracking-[0.2em]">
