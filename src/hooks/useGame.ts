@@ -1,22 +1,52 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Howl } from 'howler';
-import { questions } from '../data/questions';
+import { supabase } from '../lib/supabase';
+import { Question } from '../types';
+
+export type GameState = 'HOME' | 'CATEGORIES' | 'PLAYING' | 'RESULT';
 
 export const useGame = () => {
-  const [gameState, setGameState] = useState('HOME'); // HOME, CATEGORIES, PLAYING, RESULT
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [currentQuestions, setCurrentQuestions] = useState([]);
+  const [gameState, setGameState] = useState<GameState>('HOME');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [currentQuestions, setCurrentQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [wrongCount, setWrongCount] = useState(0);
   const [timeLeft, setTimeLeft] = useState(15);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
+  const [allQuestions, setAllQuestions] = useState<Question[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const timerRef = useRef(null);
+  const timerRef = useRef<any>(null);
 
-  // Sounds (Mock URLs/Paths - ensure they exist in src/assets/sounds/)
+
+  // Cargar preguntas desde Supabase
+  useEffect(() => {
+    const loadQuestions = async () => {
+      setIsLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from('questions')
+          .select('*');
+        
+        if (error) throw error;
+        
+        if (data) {
+          setAllQuestions(data as Question[]);
+        }
+      } catch (error) {
+        console.error('Error loading questions:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadQuestions();
+  }, []);
+
+  // Sounds
   const sounds = useRef({
     correct: new Howl({ src: ['https://assets.mixkit.co/active_storage/sfx/600/600-preview.mp3'], volume: 0.5 }),
     wrong: new Howl({ src: ['https://assets.mixkit.co/active_storage/sfx/601/601-preview.mp3'], volume: 0.5 }),
@@ -25,11 +55,11 @@ export const useGame = () => {
 
   const startGame = () => setGameState('CATEGORIES');
 
-  const selectCategory = (category) => {
-    const filtered = questions
+  const selectCategory = (category: string) => {
+    const filtered = allQuestions
       .filter(q => q.category === category)
       .sort(() => Math.random() - 0.5)
-      .slice(0, 10); // 10 questions per round
+      .slice(0, 10); 
     
     setSelectedCategory(category);
     setCurrentQuestions(filtered);
@@ -56,26 +86,25 @@ export const useGame = () => {
     }
   }, [currentIndex, currentQuestions.length, resetTurn]);
 
-  const handleAnswer = useCallback((option) => {
+  const handleAnswer = useCallback((option: string | null) => {
     if (isAnswered) return;
     
-    clearInterval(timerRef.current);
+    if (timerRef.current) clearInterval(timerRef.current);
     setSelectedAnswer(option);
     setIsAnswered(true);
 
-    const isCorrect = option === currentQuestions[currentIndex].correctAnswer;
+    const currentQ = currentQuestions[currentIndex];
+    const isCorrect = option === currentQ?.correct_answer;
 
     if (isCorrect) {
       setScore(prev => prev + 10);
       setCorrectCount(prev => prev + 1);
       sounds.current.correct.play();
-      sounds.current.timeout.stop();
     } else {
       setWrongCount(prev => prev + 1);
       sounds.current.wrong.play();
     }
 
-    // Auto-advance after 2 seconds
     setTimeout(() => {
       nextQuestion();
     }, 2000);
@@ -86,16 +115,18 @@ export const useGame = () => {
       timerRef.current = setInterval(() => {
         setTimeLeft(prev => {
           if (prev <= 1) {
-            clearInterval(timerRef.current);
+            if (timerRef.current) clearInterval(timerRef.current);
             sounds.current.timeout.play();
-            handleAnswer(null); // Timeout is wrong answer
+            handleAnswer(null);
             return 0;
           }
           return prev - 1;
         });
       }, 1000);
     }
-    return () => clearInterval(timerRef.current);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
   }, [gameState, currentIndex, isAnswered, handleAnswer]);
 
   const restartGame = () => {
@@ -103,7 +134,21 @@ export const useGame = () => {
     setScore(0);
     setCorrectCount(0);
     setWrongCount(0);
+    resetTurn();
   };
+
+  const reset = useCallback(() => {
+    setGameState('HOME');
+    setSelectedCategory(null);
+    setCurrentQuestions([]);
+    setCurrentIndex(0);
+    setScore(0);
+    setCorrectCount(0);
+    setWrongCount(0);
+    setTimeLeft(15);
+    setSelectedAnswer(null);
+    setIsAnswered(false);
+  }, []);
 
   return {
     gameState,
@@ -116,9 +161,11 @@ export const useGame = () => {
     timeLeft,
     selectedAnswer,
     isAnswered,
+    isLoading,
     startGame,
     selectCategory,
     handleAnswer,
-    restartGame
+    restartGame,
+    resetGameState: reset
   };
 };
